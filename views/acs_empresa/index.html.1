@@ -1,0 +1,108 @@
+{{extend 'layout.html'}}
+<div class="py-1">
+    <div class="container">
+        <h2 class="p-1">
+            <span class="badge badge-primary badge-pill">1</span>
+            <a href="{{=URL('alterar')}}">{{=empresa.nome}}</a>
+            <small class="text-muted">{{=auth.user.first_name}} {{=auth.user.last_name}}</small>
+        </h2>
+        <div class="container-fluid pt-4 px-4" >
+            <div class="row g-4">
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                  <i class="fa fa-pie-chart fa-3x text-primary"></i>
+                  <div class="ms-3">
+                    <p class="mb-2">Carregamentos</p>
+                    <h6 class="mb-0">{{=dinheiro(0)}}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                  <i class="fa fa-line-chart fa-3x text-primary"></i>
+                  <div class="ms-3">
+                    <p class="mb-2">Entradas do Mês</p>
+                    <h6 class="mb-0">{{=dinheiro(0)}}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                  <i class="fa fa-bar-chart fa-3x text-primary"></i>
+                  <div class="ms-3">
+                    <p class="mb-2">Saidas do Mês</p>
+                    <h6 class="mb-0">{{=dinheiro(0)}}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                  <i class="fa fa-area-chart fa-3x text-primary"></i>
+                  <div class="ms-3">
+                    <p class="mb-2">Folha do Mês</p>
+                    <h6 class="mb-0">{{=dinheiro(0)}}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-cubes text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Produtos</h4>
+                                        <p class="card-text">O cadastro de produtos é uma funcionalidade comum em sistemas de gerenciamento de estoque e vendas, onde os detalhes de um produto são registrados no sistema para rastreamento, controle e operações comerciais.</p>
+                                        <a href="{{=URL('acs_produto','index')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-id-card-o text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Funcionarios</h4>
+                                        <p class="card-text">O controle de folha de pagamento é __ um processo essencial para  garantir que os funcionários de uma empresa.</p>
+                                        <a href="{{=URL('acs_funcionario','index')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-cubes text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Patrimônio</h4>
+                                        <p class="card-text">O objetivo do controle patrimonial é garantir a correta identificação, avaliação e monitoramento desses ativos.</p>
+                                        <a href="{{=URL('acs_patrimonio','index')}}" class="btn btn-primary btn-block ">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x text-primary fa-money"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Contas</h4>
+                                        <p class="card-text">Fluxo de caixa é uma ferramenta financeira que registra e monitora todas as entradas e saídas de dinheiro de uma empresa.</p>
+                                        <a href="{{=URL('acs_conta','index')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

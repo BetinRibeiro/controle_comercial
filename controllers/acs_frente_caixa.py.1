@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+@auth.requires_login()
+def index(): return dict(message="hello from acs_frente_caixa.py")
+
+
+def buscar_ultima_operacao(usuario_id):
+    query = (db.operacao.created_by == usuario_id)
+    ultima_operacao = db(query).select(db.operacao.id, orderby=~db.operacao.id, limitby=(0, 1)).first()
+    
+    if ultima_operacao:
+        return ultima_operacao.id
+    else:
+        return None
+
+
+@auth.requires_login()
+def abrir_venda():
+    response.view = 'generic.html'  # use a generic view
+    id_operacao = buscar_ultima_operacao(auth.user.id)
+    if id_operacao=None:
+        id_operacao=1
+    gerar_codigo(request.now,auth.user.id,auth.user.id)
+#     redirect(URL('index'))
+    return locals()

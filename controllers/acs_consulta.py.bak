@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+
+def curva_abc():
+    response.view = 'mensagem.html'  # use a generic view
+    return locals()
+
+
+
+def despesas():
+    response.view = 'mensagem.html'  # use a generic view
+    return locals()
+def estoque_minimo():
+    response.view = 'mensagem.html'  # use a generic view
+    return locals()
+def direcionamento():
+    response.view = 'mensagem.html'  # use a generic view
+    return locals()

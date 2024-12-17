@@ -1,0 +1,279 @@
+{{extend 'layout.html'}}
+<div class="">
+    <div class="container">
+        <h3 class="p-1">
+            <i class="fa fa-cogs text-primary" aria-hidden="true"></i>
+            <a href="{{=URL('alterar')}}">{{=empresa.nome}}</a>
+            <small class="text-muted">{{auth.user.first_name+" "+auth.user.last_name}}</small>
+        </h3>
+        <div class="container-fluid py-1 px-4" >
+            <div class="row g-4">
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 border">
+                  <i class="fa fa-pie-chart fa-3x text-primary"></i>
+                  <div class="ms-3">
+                    <p class="mb-2">Faturamento Mês</p>
+                    <h6 class="mb-0">{{=dinheiro(0)}}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 border">
+                  <i class="fa fa-line-chart fa-3x text-primary"></i>
+                  <div class="ms-3">
+                    <p class="mb-2">Compras Mês</p>
+                    <h6 class="mb-0">{{=dinheiro(0)}}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 border">
+                  <i class="fa fa-bar-chart fa-3x text-primary"></i>
+                  <div class="ms-3">
+                    <p class="mb-2">Recebimento Mês</p>
+                    <h6 class="mb-0">{{=dinheiro(0)}}</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4 border">
+                  <i class="fa fa-area-chart fa-3x text-primary"></i>
+                  <div class="ms-3">
+                    <p class="mb-2">Pagamentos Mês</p>
+                    <h6 class="mb-0">{{=dinheiro(0)}}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row p-3">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-cubes text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Produtos</h4>
+<!--                                         <p class="card-text">O cadastro de produtos é uma funcionalidade comum em sistemas de gerenciamento de estoque e vendas, onde os detalhes de um produto são registrados no sistema para rastreamento, controle e operações comerciais.</p> -->
+                                        <a href="{{=URL('acs_produto','index')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-user-circle-o text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Fornecedores</h4>
+<!--                                         <p class="card-text">O cadastro de fornecedores é uma funcionalidade importante em sistemas de gestão, especialmente em empresas que dependem de suprimentos e materiais externos para operar.</p> -->
+                                        <a href="{{=URL('acs_pessoa','index',args='fornecedor')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-user-circle text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Clientes</h4>
+<!--                                         <p class="card-text">O cadastro de clientes é uma funcionalidade essencial em sistemas de gestão de empresas que desejam manter um registro organizado e atualizado das informações de seus clientes.</p> -->
+                                        <a href="{{=URL('acs_pessoa','index',args='cliente')}}" class="btn btn-primary btn-block ">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x text-primary fa-handshake-o "></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Operações</h4>
+<!--                                         <p class="card-text">Essa ferramenta desenha a interação entre os funcionários e os clientes no momento da compra, garantindo uma experiência suave e eficiente. </p> -->
+                                        <a href="{{=URL('acs_operacao','index')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-arrow-circle-up text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Compras</h4>
+<!--                                         <p class="card-text">O cadastro de produtos é uma funcionalidade comum em sistemas de gerenciamento de estoque e vendas, onde os detalhes de um produto são registrados no sistema para rastreamento, controle e operações comerciais.</p> -->
+                                        <a href="{{=URL('acs_frente_caixa','index',args='compra')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-arrow-circle-down  text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Vendas</h4>
+<!--                                         <p class="card-text">O cadastro de fornecedores é uma funcionalidade importante em sistemas de gestão, especialmente em empresas que dependem de suprimentos e materiais externos para operar.</p> -->
+                                        <a href="{{=URL('acs_frente_caixa','index',args='venda')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-street-view text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Usuarios</h4>
+<!--                                         <p class="card-text">O cadastro de clientes é uma funcionalidade essencial em sistemas de gestão de empresas que desejam manter um registro organizado e atualizado das informações de seus clientes.</p> -->
+                                        <a href="{{=URL('acs_usuario','index')}}" class="btn btn-primary btn-block ">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x text-primary fa-database"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Registros</h4>
+<!--                                         <p class="card-text">Essa ferramenta desenha a interação entre os funcionários e os clientes no momento da compra, garantindo uma experiência suave e eficiente. </p> -->
+                                        <a href="{{=URL('acs_registros','index')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                            {{if auth.user.id==1:}}
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-car text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Patrimônio</h4>
+<!--                                         <p class="card-text">O cadastro de produtos é uma funcionalidade comum em sistemas de gerenciamento de estoque e vendas, onde os detalhes de um produto são registrados no sistema para rastreamento, controle e operações comerciais.</p> -->
+                                        <a href="{{=URL('acs_patrimonio','index')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-calendar text-primary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Fluxo Caixa</h4>
+<!--                                         <p class="card-text">O cadastro de fornecedores é uma funcionalidade importante em sistemas de gestão, especialmente em empresas que dependem de suprimentos e materiais externos para operar.</p> -->
+                                        <a href="{{=URL('acs_fluxo_caixa','index')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-linode text-secondary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">D.R.E</h4>
+<!--                                         <p class="card-text">O cadastro de clientes é uma funcionalidade essencial em sistemas de gestão de empresas que desejam manter um registro organizado e atualizado das informações de seus clientes.</p> -->
+                                        <a href="{{=URL('acs_relatorio','dre')}}" class="btn btn-primary btn-block ">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x text-secondary fa-book"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center ">Balanço Patr.</h4>
+<!--                                         <p class="card-text">Essa ferramenta desenha a interação entre os funcionários e os clientes no momento da compra, garantindo uma experiência suave e eficiente. </p> -->
+                                        <a href="{{=URL('acs_relatorio','bp')}}" class="btn btn-primary btn-block ">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-bar-chart text-secondary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Curva ABC</h4>
+<!--                                         <p class="card-text">O cadastro de produtos é uma funcionalidade comum em sistemas de gerenciamento de estoque e vendas, onde os detalhes de um produto são registrados no sistema para rastreamento, controle e operações comerciais.</p> -->
+                                        <a href="{{=URL('acs_consulta','curva_abc')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-list-ul text-secondary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Despesas</h4>
+<!--                                         <p class="card-text">O cadastro de fornecedores é uma funcionalidade importante em sistemas de gestão, especialmente em empresas que dependem de suprimentos e materiais externos para operar.</p> -->
+                                        <a href="{{=URL('acs_consulta','despesas')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x fa-sort-amount-asc  text-secondary"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Estoque Min</h4>
+<!--                                         <p class="card-text">O cadastro de clientes é uma funcionalidade essencial em sistemas de gestão de empresas que desejam manter um registro organizado e atualizado das informações de seus clientes.</p> -->
+                                        <a href="{{=URL('acs_consulta','estoque_minimo')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="col-sm-6 col-xl-3">
+                                <div class="card">
+                                    <center>
+                                        <i class="fa fa-fw fa-1x py-1 fa-5x text-secondary fa-search"></i>
+                                    </center>
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center ">Consultas</h4>
+<!--                                         <p class="card-text">Essa ferramenta desenha a interação entre os funcionários e os clientes no momento da compra, garantindo uma experiência suave e eficiente. </p> -->
+                                        <a href="{{=URL('acs_consulta','direcionamento')}}" class="btn btn-primary btn-block">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        {{pass}}
+        </div>
+    </div>
+</div>

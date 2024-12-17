@@ -1,0 +1,279 @@
+{{extend 'layout.html'}}
+{{total_geral=0}}
+{{total_custo_geral=0}}
+
+<div class="row">
+    {{if False:}}
+    <div class="col-md-2 col-6">
+        <a class="btn btn-primary my-1 btn-block" href="#">
+        <i class="fa fa-circle fa-fw"></i>Cliente
+        </a>
+    </div>
+    {{pass}}
+    <div class="col-md-2 col-6">
+        {{if True:}}
+        {{if not operacao:}}
+        <a class="btn btn-success my-1 btn-block" href="{{=URL('abrir_operacao',args=tipo)}}">
+        <i class="fa fa-circle fa-fw"></i>Abrir {{=tipo.title()}} (F1)
+            
+<script>
+    document.addEventListener('keydown', function(event) {
+      // Verifica se a tecla pressionada é a tecla F1 (código 112)
+      if (event.keyCode === 112) {
+        // Redireciona para a URL especificada
+        window.location.href = "{{=URL('abrir_operacao',args=tipo)}}"; // Substitua pela URL desejada
+      }
+    });
+  </script>
+        </a>
+        {{else:}}
+        <a class="btn btn-dark my-1 btn-block disabled" href="#">
+        <i class="fa fa-circle fa-fw"></i>Abrir {{=tipo.title()}} (F1)
+        </a>
+        {{pass}}
+        {{pass}}
+    </div>
+    <div class="col-md-2 col-6">
+        {{if operacao:}}
+                {{if len(rows)>0:}}
+                    <a class="btn btn-primary my-1 btn-block" href="{{=URL('definir_pessoa',args=operacao.id)}}">
+                    <i class="fa fa-circle fa-fw"></i>{{if 'venda' in operacao.tipo:}}Cliente{{else:}}Fornecedor{{pass}} (F2)
+                    </a>
+        
+<script>
+    document.addEventListener('keydown', function(event) {
+      // Verifica se a tecla pressionada é a tecla F1 (código 112)
+      if (event.keyCode === 113) {
+        // Redireciona para a URL especificada
+        window.location.href = "{{=URL('definir_pessoa',args=operacao.id)}}"; // Substitua pela URL desejada
+      }
+    });
+  </script>
+                {{else:}}
+                    <a class="btn btn-dark my-1 btn-block disabled" href="#">
+                    <i class="fa fa-circle fa-fw"></i>{{if 'venda' in operacao.tipo:}}Cliente{{else:}}Fornecedor{{pass}}
+                    </a>
+                {{pass}}
+        {{else:}}
+        <a class="btn btn-dark my-1 btn-block disabled" href="#">
+        <i class="fa fa-circle fa-fw"></i>Aguardando
+        </a>
+        {{pass}}
+    </div>
+    <div class="col-md-2 col-6">
+        {{if True:}}
+        {{if operacao:}}
+        <a class="btn btn-danger my-1 btn-block" href="{{=URL('cancelar_operacao',args=operacao.id)}}">
+        <i class="fa fa-circle fa-fw"></i>Cancelar (F4)
+        </a>
+        
+        
+<script>
+    document.addEventListener('keydown', function(event) {
+      // Verifica se a tecla pressionada é a tecla F1 (código 112)
+      if (event.keyCode === 115) {
+        // Redireciona para a URL especificada
+        window.location.href = "{{=URL('cancelar_operacao',args=operacao.id)}}"; // Substitua pela URL desejada
+      }
+    });
+  </script>
+        {{else:}}
+        <a class="btn btn-dark my-1 btn-block disabled" href="#">
+        <i class="fa fa-circle fa-fw"></i>Cancelar
+        </a>
+        {{pass}}
+        {{pass}}
+    </div>
+    <div class="col-md-2 col-6">
+        {{if produto:}}
+        <a class="btn btn-warning my-1 btn-block" href="{{=URL(args=operacao.tipo)}}">
+        <i class="fa fa-circle fa-fw"></i>Tirar Produto 
+        </a>
+        {{else:}}
+        
+                    <a class="btn btn-dark my-1 btn-block disabled" href="#">
+                    <i class="fa fa-circle fa-fw"></i>Tirar Produto 
+                    </a>
+        {{pass}}
+    </div>
+    <div class="col-md-2 col-6">
+        {{if True:}}
+            {{if operacao:}}
+                {{if len(rows)>0:}}
+                    <a class="btn btn-success my-1 btn-block" href="{{=URL('fechar_operacao',args=operacao.id)}}">
+                    <i class="fa fa-circle fa-fw"></i>Finalizar (F1)
+                    </a>
+<script>
+    document.addEventListener('keydown', function(event) {
+      // Verifica se a tecla pressionada é a tecla F1 (código 112)
+      if (event.keyCode === 112) {
+        // Redireciona para a URL especificada
+        window.location.href = "{{=URL('fechar_operacao',args=operacao.id)}}"; // Substitua pela URL desejada
+      }
+    });
+  </script>
+                {{else:}}
+
+                    <a class="btn btn-dark my-1 btn-block disabled" href="#">
+                    <i class="fa fa-circle fa-fw"></i>Finalizar 
+                    </a>
+                {{pass}}
+            {{else:}}
+                    <a class="btn btn-dark my-1 btn-block disabled" href="#">
+                    <i class="fa fa-circle fa-fw"></i>Finalizar
+                    </a>
+
+            {{pass}}
+        {{pass}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h6 class="my-2">Operador: {{=auth.user.first_name+" "+auth.user.last_name}}</h6>
+    </div>
+    <div class="col-md-6">
+        <h5 class="my-2 text-right">Código Operação: {{if operacao:}}{{=operacao.codigo}}{{pass}}</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h5 class="my-2">
+            Cliente: 
+            {{if operacao:}}
+                    {{if operacao.pessoa:}}{{=operacao.pessoa.nome}}{{else:}}{{=tipo.title()}} Caixa Livre{{pass}}
+            {{else:}}
+                    Aguardando Abertura de Caixa
+            {{pass}}
+        </h5>
+    </div>
+    <div class="col-md-6">
+        {{if operacao:}}
+            {{if not form:}}
+                <input type="text" class="form-control my-1" name="busca" placeholder="Pesquisar" id="input">
+            {{pass}}
+        {{else:}}
+            Você Precisa Abrir uma Nova Venda
+        {{pass}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6 text-right">
+            {{cor='dark'}}
+        {{if 'compra' in tipo:}}
+        {{cor='info'}}
+        {{pass}}
+        <i class="fa fa-barcode fa-5x text-{{=cor}}" aria-hidden="true"></i>
+        <i class="fa fa-barcode fa-5x text-{{=cor}}" aria-hidden="true"></i>
+        <i class="fa fa-barcode fa-5x text-{{=cor}}" aria-hidden="true"></i>
+        <i class="fa fa-barcode fa-5x text-{{=cor}}" aria-hidden="true"></i>
+        <i class="fa fa-barcode fa-5x text-{{=cor}}" aria-hidden="true"></i>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="text-right">
+                {{if operacao:}}
+                    {{if produto:}}
+                            {{=produto.descricao}}
+                    {{else:}}
+                        {{if msn:}}
+                            {{=msn}}
+                        {{else:}}
+                            Consulte o produto
+                        {{pass}}
+                    {{pass}}
+                {{pass}}
+                </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0 table-sm">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th class=" text-center">Quant</th>
+                        <th class=" text-center">Preço Unt</th>
+                        <th class=" text-right">Total</th>
+                        {{if 'compra' in tipo:}}
+                        <th class=" text-center">Custo Unt</th>
+                        <th class=" text-right">Total</th>
+                        {{pass}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{for row in rows:}}
+                    <tr>
+                        <th title="{{=row.produto.codigo_barras}} Estoque - {{=row.produto.quantidade_estoque}}">
+                            <a href="{{=URL('retirar_item',args=row.id)}}"><i class="fa fa-window-close-o fa-fw text-danger"></i></a>
+                            {{=row.produto.descricao}}</th>
+                        <td class=" text-center" >{{=(row.quantidade)}}</td>
+                        <td class=" text-center">{{=dinheiro(row.preco_unitario)}}</td>
+                        {{total=float(row.quantidade)*float(row.preco_unitario)}}
+                        <td class=" text-right">{{=dinheiro(total)}}</td>
+                        {{total_custo=float(row.quantidade)*float(row.custo_unitario)}}
+                        {{total_geral+=total}}
+                        {{total_custo_geral+=total_custo}}
+                        
+                        {{if 'compra' in tipo:}}
+                        <td class=" text-center">{{=dinheiro(row.custo_unitario)}}</td>
+                        <th class=" text-right">{{=dinheiro(total_custo)}}</th>
+                        {{pass}}
+                    </tr>
+                    {{pass}}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <h6 class="my-2 text-right">Valor Total</h6>
+                <h5 class="my-2 text-right">{{=dinheiro(total_geral)}}</h5>
+                        {{if 'compra' in tipo:}}
+                <h5 class="my-2 text-right">Custo - {{=dinheiro(total_custo_geral)}}</h5>
+                
+                {{pass}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        {{if form:}}
+            {{=form}}
+        
+        <a class="btn btn-warning my-1 " href="{{=URL(args=operacao.tipo)}}">
+        <i class="fa fa-circle fa-fw"></i>Tirar Produto (Esc)
+        </a>
+        {{else:}}
+            <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ></i>
+        {{pass}}
+    </div>
+</div>
+
+<script>
+    document.querySelector('#input').focus();
+    var inputElement = document.querySelector('input[name=busca]');
+
+    $(document).keypress(function(e) {
+    if(e.which == 13) {
+     var busca= inputElement.value;
+        window.location.href = "{{=URL('index',args=tipo)}}/"+busca
+    }
+});
+</script>
+
+{{if  form:}}
+    <script>
+        document.querySelector('#produto_operacao_quantidade').focus();
+    </script>
+{{pass}}
+{{if operacao:}}
+    {{salvar_operacao(operacao.id)}}
+    {{operacao.valor_total=total_geral}}
+    {{operacao.custo_total=total_custo_geral}}
+    {{operacao.update_record()}}
+{{pass}}

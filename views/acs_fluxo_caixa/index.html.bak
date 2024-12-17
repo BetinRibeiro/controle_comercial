@@ -1,0 +1,224 @@
+{{extend 'layout.html'}}
+{{total_pagamentos_pendentes=0}}
+{{total_geral =0 }}
+{{total_quitado=0}}
+{{total_aguardando=0}}
+
+{{contas_pagas=0}}
+{{contas_recebidas=0}}
+{{contas_para_pagar=0}}
+{{contas_para_recebers=0}}
+
+{{saldo=0}}
+<div class="container-fluid pt-4 px-4">
+    <div>
+        
+        <ul class="pagination">
+            <li class="page-item"> 
+                <a class="page-link" href="{{=URL(args=[posicao-10])}}">
+                    <span>«</span>10</a> </li>
+            <li class="page-item"> 
+                <a class="page-link" href="{{=URL(args=[posicao-5])}}">5
+                </a> </li>
+            <li class="page-item"> 
+                <a class="page-link" href="{{=URL(args=[posicao-3])}}">3
+                </a> </li>
+            <li class="page-item"> 
+                <a class="page-link" href="{{=URL(args=[posicao-1])}}">1
+                </a> </li>
+            <li class="page-item active"> <a class="page-link" href="#">{{=hoje.strftime('%d/%m')}}</a> </li>
+            <li class="page-item"> 
+                <a class="page-link" href="{{=URL(args=[posicao+1])}}">1
+                </a> </li>
+            <li class="page-item"> 
+                <a class="page-link" href="{{=URL(args=[posicao+3])}}">3
+                </a> </li>
+            <li class="page-item"> 
+                <a class="page-link" href="{{=URL(args=[posicao+5])}}">5
+                </a> </li>
+            <li class="page-item"> 
+                <a class="page-link" href="{{=URL(args=[posicao+10])}}">10
+                    <span>»</span></a> </li>
+          </ul>
+    </div>
+    <div class="bg-light text-left rounded p-4"  >
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Lista de Registros dia {{=hoje.strftime('%d/%m')}}</h6>
+            <div>
+                {{if False:}}
+                <a class="btn btn-info btn-sm" href="{{=URL('cadastrar', args=['saldo',posicao])}}" >
+                    <i class="fa fa-fw fa-plus"></i> Saldo
+                </a>
+                
+                <a class="btn btn-info btn-sm" href="{{=URL('cadastrar', args=['saldo',posicao])}}" >
+                    <i class="fa fa-fw fa-plus"></i> Saldo
+                </a>
+                <a class="btn btn-success btn-sm" href="{{=URL('cadastrar', args=['entrada',posicao])}}" >
+                    <i class="fa fa-fw fa-plus"></i> Entrada
+                </a>
+                <a class="btn btn-danger btn-sm" href="{{=URL('cadastrar', args=['saida',posicao])}}" >
+                    <i class="fa fa-fw fa-plus"></i> Saida
+                </a>
+                {{pass}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th id="noprint" scope="col">Alterar</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{for row in rows:}}
+                        <tr>
+                            <th id="noprint" scope="row">
+                                {{if row.registro_financeiro.liquidado:}}
+                                <a class="btn btn-info btn-sm" href="{{=URL('alterar', args=[row.registro_financeiro.id,posicao])}}">
+                                    <i class="fa fa-pencil-square "></i> Alterar </a>
+                                {{else:}}
+                                <a class="text-danger" href="{{=URL('alterar', args=[row.registro_financeiro.id,posicao])}}">
+                                    <i class="fa fa-pencil-square "></i> Alterar</a>
+                                {{pass}}
+                            </th>
+                            <td>{{=row.registro_financeiro.data_vencimento.strftime('%d/%m/%Y')}}</td>
+                            <td>{{=(row.registro_financeiro.tipo)}}</td>
+                            <td>{{=dinheiro(row.registro_financeiro.valor)}}</td>
+                            {{total_geral +=row.registro_financeiro.valor }}
+                            <td>
+                                {{if row.registro_financeiro.liquidado:}}
+                                    {{if 'recebimento' in row.registro_financeiro.tipo:}}
+                                        {{contas_recebidas+=row.registro_financeiro.valor}}
+                                {{saldo+=row.registro_financeiro.valor}}
+
+                                    {{elif 'SALDO' in row.registro_financeiro.tipo:}}
+                                        {{contas_recebidas+=row.registro_financeiro.valor}}
+                                        {{saldo+=row.registro_financeiro.valor}}
+                                    {{else:}}
+                                        {{contas_pagas+=row.registro_financeiro.valor}}
+                                        {{saldo-=row.registro_financeiro.valor}}
+                                    {{pass}}
+                                    {{=dinheiro(saldo)}}
+                                {{else:}}
+                                    {{if row.registro_financeiro.tipo=="recebimento":}}
+                                        {{contas_para_recebers+=row.registro_financeiro.valor}}
+                                    {{else:}}
+                                        {{contas_para_pagar+=row.registro_financeiro.valor}}
+                                    {{pass}}
+                                    --
+                                {{pass}}
+                            </td>
+                        </tr>
+                        {{pass}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{if len(rows)>0:}}
+    {{block rodfrape}}
+
+    <div class="bg-light text-left rounded p-4">
+        <div class="row">
+            <div class="col-md-3 text-center border">
+              <div class="blockquote">
+                <p class="mb-0">{{=dinheiro(contas_pagas)}}</p>
+                <div class="blockquote-footer my-1">
+                    Pagas
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-3 text-center border">
+              <div class="blockquote">
+                <p class="mb-0">{{=dinheiro(contas_recebidas)}}</p>
+                <div class="blockquote-footer my-1">
+                    Recebidas
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-3 text-center border">
+              <div class="blockquote">
+                <p class="mb-0">{{=dinheiro(contas_para_pagar)}}</p>
+                <div class="blockquote-footer my-1">
+                  À Pagar
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-3 text-center border">
+              <div class="blockquote">
+                <p class="mb-0">{{=dinheiro(contas_para_recebers)}}</p>
+                <div class="blockquote-footer my-1">
+                  À Receber
+                  </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    {{end}}
+    {{pass}}
+    {{if len(rows_atrasado)>0:}}
+    {{if liberado:}}
+    <div class="py-5">
+        <div class="container">
+            <div class="bg-light text-left rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="">Lista {{=len(rows_atrasado)}} Registros Aguardando Dias Anteriores</h5>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered ">
+                            <thead class="">
+                                <tr>
+                                    <th scope="col">Alterar</th>
+                                    <th scope="col">Vencimento</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Descrição</th>
+                                    <th scope="col">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{for row in rows_atrasado:}}
+                                <tr>
+                                    <th id="noprint" scope="row">
+                                        {{if row.registro_financeiro.liquidado:}}
+                                        <a class="btn btn-info " href="{{=URL('alterar', args=[row.registro_financeiro.id,posicao,1])}}">
+                                            <i class="fa fa-pencil-square "></i> Alterar </a>
+                                        {{else:}}
+                                        <a class="btn btn-primary" href="{{=URL('alterar', args=[row.registro_financeiro.id,posicao,1])}}">
+                                            <i class="fa fa-pencil-square "></i> Alterar </a>
+                                        {{pass}}
+                                    </th>
+                                    <td>{{=row.registro_financeiro.data_vencimento.strftime('%d/%m/%Y')}}</td>
+                                    <td>{{=(row.registro_financeiro.tipo)}}</td>
+                                    <td>{{=dinheiro(row.registro_financeiro.valor)}}</td>
+                                    {{total_pagamentos_pendentes+=row.registro_financeiro.valor}}
+                                </tr>
+                                {{pass}}
+                                <tr>
+                                    <th>#</th>
+                                    <th >#</th>
+                                    <th>#</th>
+                                    <th>Total</th>
+                                    <th >{{=dinheiro(total_pagamentos_pendentes)}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    {{pass}}
+    {{pass}}
+</div>
